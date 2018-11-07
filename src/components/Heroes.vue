@@ -11,7 +11,7 @@
 
     <ul class="heroes">
       <li v-for="hero in heroes">
-        <router-link  to="/detail/1">
+        <router-link  :to="{ name: 'detail', params: {id: hero.id} }">
         <a>
           <span class="badge">{{hero.id}}</span> {{hero.name}}
         </a>

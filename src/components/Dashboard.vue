@@ -2,8 +2,8 @@
 <div>
     <h3>Top Heroes</h3>
     <div class="grid grid-pad">
-      <router-link to="/detail/1">
-        <a v-for="hero in sliced_heroes" class="col-1-4">
+      <router-link v-for="hero in sliced_heroes" :to="{ name: 'detail', params: {id: hero.id} }">
+        <a class="col-1-4">
           <div class="module hero">
             <h4>{{hero.name}}</h4>
           </div>
