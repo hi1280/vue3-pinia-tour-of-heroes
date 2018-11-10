@@ -1,18 +1,16 @@
-# tour-of-heroes
+## [Tour of Heroes](https://github.com/johnpapa/angular-tour-of-heroes) of Vue + Vuex version
 
-> A Vue.js project
+### Requirements
 
-## Build Setup
+* Install the Node.js
 
-``` bash
-# install dependencies
+### Usage
+
+```
 npm install
-
-# serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### Description
+
+[Tour of Heroes API](https://github.com/hi1280/tour-of-heroes-api) is used for Web API
