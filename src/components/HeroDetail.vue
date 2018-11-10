@@ -14,20 +14,25 @@
 
 <script>
 export default {
-  created() {
-    this.$store.dispatch('fetchHero',this.$route.params.id);
-  },
-  computed: {
-    hero() {
-      return this.$store.getters.heroes.find(element => element.id == this.$route.params.id);
+  data() {
+    return {
+      hero: {
+        id: 0,
+        name: ''
+      }
     }
+  },
+  created() {
+    this.$store.dispatch('fetchHero', this.$route.params.id);
+    this.hero = this.$store.getters.heroes.find(element => element.id == this.$route.params.id);
   },
   methods: {
     goBack() {
       this.$router.go(-1);
     },
     save() {
-      console.log('save:' + JSON.stringify(this.hero));
+      this.$store.dispatch('updateHero', this.hero);
+      this.$router.go(-1);
     }
   }
 }
