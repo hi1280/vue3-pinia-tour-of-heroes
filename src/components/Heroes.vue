@@ -32,7 +32,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('initHeroes');
+    this.$store.dispatch('fetchHeroes');
   },
   computed: {
     heroes() {

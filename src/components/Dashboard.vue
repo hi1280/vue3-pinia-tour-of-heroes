@@ -20,7 +20,7 @@ export default {
     appHeroSearch: HeroSearch
   },
   created() {
-    this.$store.dispatch('initHeroes');
+    this.$store.dispatch('fetchHeroes');
   },
   computed: {
     sliced_heroes() {

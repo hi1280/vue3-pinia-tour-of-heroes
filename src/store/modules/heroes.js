@@ -3,36 +3,40 @@ import Vue from 'vue';
 const key = 2;
 
 const state = {
-  heroes: []
+  heroes: [],
+  searchedHeroes: []
 };
 
-const set = (state, hero) => {
+const updateHero = (state, hero) => {
   const idx = state.heroes.findIndex(element => element.id == hero.id);
   state.heroes.splice(idx, 1, hero);
 };
 
 const mutations = {
-  'SET_HEROES' (state, heroes) {
+  'FETCH_HEROES' (state, heroes) {
     state.heroes = heroes;
   },
-  'FETCH_HERO' : set,
-  'UPDATE_HERO' : set,
+  'FETCH_HERO' : updateHero,
+  'UPDATE_HERO' : updateHero,
   'CREATE_HERO' (state, hero) {
     state.heroes.push(hero);
   },
   'DELETE_HERO' (state, hero) {
     const idx = state.heroes.findIndex(element => element.id == hero.id)
     state.heroes.splice(idx, 1);
+  },
+  'SEARCH_HEROES' (state, heroes) {
+    state.searchedHeroes = heroes;
   }
 };
 
 const actions = {
-  initHeroes: ({commit}) => {
+  fetchHeroes: ({commit}) => {
     Vue.http.get(`?key=${key}`)
       .then(response => response.json())
       .then(heroes => {
         if(heroes) {
-          commit('SET_HEROES', heroes);
+          commit('FETCH_HEROES', heroes);
         }
       });
   },
@@ -71,12 +75,29 @@ const actions = {
           commit('DELETE_HERO', hero);
         }
       });
+  },
+  searchHeroes: ({commit}, value) => {
+    console.log(value);
+    if(!value) {
+      commit('SEARCH_HEROES', []);
+    } else {
+      Vue.http.get(`?name=${value}&key=${key}`)
+        .then(response => response.json())
+        .then(heroes => {
+          if(heroes) {
+            commit('SEARCH_HEROES', heroes);
+          }
+        });
+    }
   }
 };
 
 const getters = {
   heroes: state => {
     return state.heroes;
+  },
+  searchedHeroes: state => {
+    return state.searchedHeroes;
   }
 };
 
