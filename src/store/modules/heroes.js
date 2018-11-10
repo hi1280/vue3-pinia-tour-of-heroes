@@ -77,7 +77,6 @@ const actions = {
       });
   },
   searchHeroes: ({commit}, value) => {
-    console.log(value);
     if(!value) {
       commit('SEARCH_HEROES', []);
     } else {
