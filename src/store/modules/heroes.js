@@ -1,6 +1,7 @@
 import Vue from 'vue';
 
 const key = 2;
+const rootUrl = 'http://127.0.0.1:4010/api/heroes';
 
 const state = {
   heroes: [],
@@ -32,7 +33,9 @@ const mutations = {
 
 const actions = {
   fetchHeroes: ({commit}) => {
-    Vue.http.get(`?key=${key}`)
+    fetch(`${rootUrl}?key=${key}`,{
+      method: 'GET',
+    })
       .then(response => response.json())
       .then(heroes => {
         if(heroes) {
@@ -41,7 +44,9 @@ const actions = {
       });
   },
   fetchHero: ({commit}, id) => {
-    Vue.http.get(`${id}?key=${key}`)
+    fetch(`${rootUrl}/${id}?key=${key}`,{
+      method: 'GET',
+    })
       .then(response => response.json())
       .then(hero => {
         if(hero) {
@@ -50,7 +55,13 @@ const actions = {
       });
   },
   createHero: ({commit}, values) => {
-    Vue.http.post(`?key=${key}`, values)
+    fetch(`${rootUrl}?key=${key}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
       .then(response => response.json())
       .then(hero => {
         if(hero) {
@@ -59,7 +70,13 @@ const actions = {
       });
   },
   updateHero: ({commit}, values) => {
-    Vue.http.put(`${values.id}?key=${key}`, {name: values.name})
+    fetch(`${rootUrl}/${values.id}?key=${key}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: values.name})
+    })
       .then(response => response.json())
       .then(hero => {
         if(hero) {
@@ -68,7 +85,9 @@ const actions = {
       });
   },
   deleteHero: ({commit}, id) => {
-    Vue.http.delete(`${id}?key=${key}`)
+    fetch(`${rootUrl}/${id}?key=${key}`, {
+      method: 'DELETE',
+    })
       .then(response => response.json())
       .then(hero => {
         if(hero) {
@@ -80,7 +99,9 @@ const actions = {
     if(!value) {
       commit('SEARCH_HEROES', []);
     } else {
-      Vue.http.get(`?name=${value}&key=${key}`)
+      fetch(`${rootUrl}?name=${value}&key=${key}`,{
+        method: 'GET',
+      })
         .then(response => response.json())
         .then(heroes => {
           if(heroes) {
