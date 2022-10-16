@@ -1,22 +1,22 @@
-import { defineConfig } from 'vite'
-import createVuePlugin from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import createVuePlugin from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
     alias: {
-      vue: '@vue/compat'
-    }
+      vue: '@vue/compat',
+    },
   },
   plugins: [
     createVuePlugin({
       template: {
         compilerOptions: {
           compatConfig: {
-            MODE: 2
-          }
-        }
-      }
-    })
-  ]
-})
+            MODE: 2,
+          },
+        },
+      },
+    }),
+  ],
+});

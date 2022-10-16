@@ -1,20 +1,20 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import VueRouter from 'vue-router';
-import App from './App.vue'
+import App from './App.vue';
 import { routes } from './routes';
 import store from './store/store';
-import './assets/style.css'
+import './assets/style.css';
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
 });
 
 new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
-})
+  render: (h) => h(App),
+});
