@@ -1,21 +1,18 @@
 import { createApp } from 'vue';
-import VueRouter from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue';
 import { routes } from './routes';
 import store from './store/store';
 import './assets/style.css';
 
-const router = new VueRouter({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes,
 });
 
-const app = createApp({
-  router,
-  ...App,
-});
+const app = createApp(App);
 
-app.use(VueRouter);
+app.use(router);
 app.use(store);
 
 app.mount('#app');
