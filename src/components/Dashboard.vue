@@ -13,7 +13,7 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
 import HeroSearch from './HeroSearch.vue';
 export default {
   components: {
