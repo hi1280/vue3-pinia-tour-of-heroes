@@ -2,7 +2,7 @@
   <div id="search-component">
     <h4>Hero Search</h4>
 
-    <input id="search-box" @keyup="search($event.target.value)"/>
+    <input id="search-box" @keyup="search(($event.target as HTMLInputElement).value)"/>
 
     <ul class="search-result">
       <li v-for="hero in heroes" :key="hero.id">
@@ -14,21 +14,20 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import _ from 'lodash';
+import { computed } from 'vue';
+import { useHeroStore } from '../store/heroes';
 
-export default {
-  computed: {
-    heroes() {
-      return this.$store.getters.searchedHeroes;
-    }
-  },
-  methods: {
-    search : _.debounce(function(value) {
-      this.$store.dispatch('searchHeroes', value);
-    }, 300)
-  }
-}
+const store = useHeroStore();
+
+const heroes = computed(() => {
+  return store.searchedHeroes;
+});
+
+const search = _.debounce(function (value: string): void {
+  store.searchHeroes(value);
+}, 300);
 </script>
 
 <style scoped>

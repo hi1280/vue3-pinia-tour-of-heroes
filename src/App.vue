@@ -9,14 +9,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      title : 'Tour of Heroes'
-    }
-  }
-}
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const title = ref('Tour of Heroes');
 </script>
 
 <style scoped>

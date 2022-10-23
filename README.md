@@ -1,4 +1,4 @@
-## [Tour of Heroes](https://github.com/johnpapa/angular-tour-of-heroes) of Vue + Vuex version
+## [Tour of Heroes](https://github.com/johnpapa/angular-tour-of-heroes) of Vue + Pinia version
 
 ### Requirements
 

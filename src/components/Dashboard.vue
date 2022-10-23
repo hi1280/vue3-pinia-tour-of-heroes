@@ -9,25 +9,21 @@
       </router-link>
     </div>
 
-    <app-hero-search></app-hero-search>
+    <HeroSearch></HeroSearch>
 </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useHeroStore } from '../store/heroes';
 import HeroSearch from './HeroSearch.vue';
-export default {
-  components: {
-    appHeroSearch: HeroSearch
-  },
-  created() {
-    this.$store.dispatch('fetchHeroes');
-  },
-  computed: {
-    sliced_heroes() {
-      return this.$store.getters.heroes.slice(1,5);
-    }
-  }
-}
+
+const store = useHeroStore();
+store.fetchHeroes();
+
+const sliced_heroes = computed(() => {
+  return store.heroes.slice(1, 5);
+});
 </script>
 
 <style scoped>

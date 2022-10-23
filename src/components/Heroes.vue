@@ -3,50 +3,49 @@
     <h2>My Heroes</h2>
 
     <div>
-      <label>Hero name:
-        <input type="text" v-model="hero.name">
+      <label
+        >Hero name:
+        <input type="text" v-model="hero.name" />
       </label>
       <button @click="submit">add</button>
     </div>
 
     <ul class="heroes">
       <li v-for="hero in heroes" :key="hero.id">
-        <router-link :to="{ name: 'detail', params: {id: hero.id} }">
-          <span class="badge">{{hero.id}}</span> {{hero.name}}
+        <router-link :to="{ name: 'detail', params: { id: hero.id } }">
+          <span class="badge">{{ hero.id }}</span> {{ hero.name }}
         </router-link>
-        <button @click="deleteHero(hero.id)" class="delete" title="delete hero">x</button>
+        <button @click="deleteHero(hero.id)" class="delete" title="delete hero">
+          x
+        </button>
       </li>
     </ul>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      hero: {
-        name: ''
-      }
-    }
-  },
-  created() {
-    this.$store.dispatch('fetchHeroes');
-  },
-  computed: {
-    heroes() {
-      return this.$store.getters.heroes;
-    }
-  },
-  methods: {
-    submit() {
-      this.$store.dispatch('createHero', this.hero);
-      this.hero.name = '';
-    },
-    deleteHero(id) {
-      this.$store.dispatch('deleteHero', id);
-    }
-  }
-}
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+import { useHeroStore } from '../store/heroes';
+
+const store = useHeroStore();
+const hero = ref({
+  name: '',
+});
+
+store.fetchHeroes();
+
+const heroes = computed(() => {
+  return store.heroes;
+});
+
+const submit = () => {
+  store.createHero(hero.value);
+  hero.value.name = '';
+};
+
+const deleteHero = (id: number) => {
+  store.deleteHero(id);
+};
 </script>
 
 <style scoped>
@@ -60,17 +59,17 @@ export default {
 .heroes li {
   position: relative;
   cursor: pointer;
-  background-color: #EEE;
-  margin: .5em;
-  padding: .3em 0;
+  background-color: #eee;
+  margin: 0.5em;
+  padding: 0.3em 0;
   height: 1.6em;
   border-radius: 4px;
 }
 
 .heroes li:hover {
-  color: #607D8B;
-  background-color: #DDD;
-  left: .1em;
+  color: #607d8b;
+  background-color: #ddd;
+  left: 0.1em;
 }
 
 .heroes a {
@@ -82,7 +81,7 @@ export default {
 }
 
 .heroes a:hover {
-  color:#607D8B;
+  color: #607d8b;
 }
 
 .heroes .badge {
@@ -90,7 +89,7 @@ export default {
   font-size: small;
   color: white;
   padding: 0.8em 0.7em 0 0.7em;
-  background-color: #607D8B;
+  background-color: #607d8b;
   line-height: 1em;
   position: relative;
   left: -1px;
@@ -98,7 +97,7 @@ export default {
   height: 1.8em;
   min-width: 16px;
   text-align: right;
-  margin-right: .8em;
+  margin-right: 0.8em;
   border-radius: 4px 0 0 4px;
 }
 
@@ -123,8 +122,6 @@ button.delete {
   background-color: gray !important;
   color: white;
 }
-
-
 
 /*
 Copyright 2017-2018 Google Inc. All Rights Reserved.
