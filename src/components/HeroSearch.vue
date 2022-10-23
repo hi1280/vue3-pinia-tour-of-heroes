@@ -17,16 +17,16 @@
 <script setup lang="ts">
 import _ from 'lodash';
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useHeroStore } from '../store/heroes';
 
-const store = useStore();
+const store = useHeroStore();
 
 const heroes = computed(() => {
-  return store.getters.searchedHeroes;
+  return store.searchedHeroes;
 });
 
-const search = _.debounce(function (this: any, value: string): void {
-  store.dispatch('searchHeroes', value);
+const search = _.debounce(function (value: string): void {
+  store.searchHeroes(value);
 }, 300);
 </script>
 

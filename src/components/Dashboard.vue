@@ -15,14 +15,14 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useHeroStore } from '../store/heroes';
 import HeroSearch from './HeroSearch.vue';
 
-const store = useStore();
-store.dispatch('fetchHeroes');
+const store = useHeroStore();
+store.fetchHeroes();
 
 const sliced_heroes = computed(() => {
-  return store.getters.heroes.slice(1, 5);
+  return store.heroes.slice(1, 5);
 });
 </script>
 

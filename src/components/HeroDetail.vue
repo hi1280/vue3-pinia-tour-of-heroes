@@ -15,11 +15,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useStore } from 'vuex';
+import { useHeroStore } from '../store/heroes';
 import { useRouter, useRoute } from 'vue-router';
 import type { Hero } from '../hero';
 
-const store = useStore();
+const store = useHeroStore();
 const router = useRouter();
 const route = useRoute();
 const hero = ref({
@@ -27,17 +27,17 @@ const hero = ref({
   name: '',
 });
 
-store.dispatch('fetchHero', route.params.id);
-hero.value = store.getters.heroes.find(
+store.fetchHero(route.params.id[0]);
+hero.value = store.heroes.find(
   (element: Hero) => String(element.id) === route.params.id
-);
+)!;
 
 const goBack = () => {
   router.go(-1);
 };
 
 const save = () => {
-  store.dispatch('updateHero', hero.value);
+  store.updateHero(hero.value);
   router.go(-1);
 };
 </script>

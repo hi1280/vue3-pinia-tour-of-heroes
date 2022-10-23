@@ -25,26 +25,26 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { useStore } from 'vuex';
+import { useHeroStore } from '../store/heroes';
 
-const store = useStore();
+const store = useHeroStore();
 const hero = ref({
   name: '',
 });
 
-store.dispatch('fetchHeroes');
+store.fetchHeroes();
 
 const heroes = computed(() => {
-  return store.getters.heroes;
+  return store.heroes;
 });
 
 const submit = () => {
-  store.dispatch('createHero', hero.value);
+  store.createHero(hero.value);
   hero.value.name = '';
 };
 
 const deleteHero = (id: number) => {
-  store.dispatch('deleteHero', id);
+  store.deleteHero(id);
 };
 </script>
 
