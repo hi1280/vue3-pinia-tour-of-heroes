@@ -14,22 +14,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import type { Hero } from '../hero';
+<script setup lang="ts">
 import _ from 'lodash';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  computed: {
-    heroes() {
-      return this.$store.getters.searchedHeroes;
-    }
-  },
-  methods: {
-    search : _.debounce(function(this: any, value: string) {
-      this.$store.dispatch('searchHeroes', value);
-    }, 300)
-  }
-}
+const store = useStore();
+
+const heroes = computed(() => {
+  return store.getters.searchedHeroes;
+});
+
+const search = _.debounce(function (this: any, value: string): void {
+  store.dispatch('searchHeroes', value);
+}, 300);
 </script>
 
 <style scoped>
