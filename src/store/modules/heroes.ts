@@ -1,36 +1,38 @@
+import type { State, Hero } from '../../hero';
+
 const key = 2;
 const rootUrl = 'http://127.0.0.1:4010/api/heroes';
 
-const state = {
+const state: State = {
   heroes: [],
   searchedHeroes: [],
 };
 
-const updateHero = (state, hero) => {
-  const idx = state.heroes.findIndex((element) => element.id == hero.id);
+const updateHero = (state: State, hero: Hero) => {
+  const idx = state.heroes.findIndex((element: Hero) => element.id == hero.id);
   state.heroes.splice(idx, 1, hero);
 };
 
 const mutations = {
-  FETCH_HEROES(state, heroes) {
+  FETCH_HEROES(state: State, heroes: Hero[]) {
     state.heroes = heroes;
   },
   FETCH_HERO: updateHero,
   UPDATE_HERO: updateHero,
-  CREATE_HERO(state, hero) {
+  CREATE_HERO(state: State, hero: Hero) {
     state.heroes.push(hero);
   },
-  DELETE_HERO(state, hero) {
+  DELETE_HERO(state: State, hero: Hero) {
     const idx = state.heroes.findIndex((element) => element.id == hero.id);
     state.heroes.splice(idx, 1);
   },
-  SEARCH_HEROES(state, heroes) {
+  SEARCH_HEROES(state: State, heroes: Hero[]) {
     state.searchedHeroes = heroes;
   },
 };
 
 const actions = {
-  fetchHeroes: ({ commit }) => {
+  fetchHeroes: ({ commit }: any) => {
     fetch(`${rootUrl}?key=${key}`, {
       method: 'GET',
     })
@@ -41,7 +43,7 @@ const actions = {
         }
       });
   },
-  fetchHero: ({ commit }, id) => {
+  fetchHero: ({ commit }: any, id: number) => {
     fetch(`${rootUrl}/${id}?key=${key}`, {
       method: 'GET',
     })
@@ -52,7 +54,7 @@ const actions = {
         }
       });
   },
-  createHero: ({ commit }, values) => {
+  createHero: ({ commit }: any, values: Hero) => {
     fetch(`${rootUrl}?key=${key}`, {
       method: 'POST',
       headers: {
@@ -67,7 +69,7 @@ const actions = {
         }
       });
   },
-  updateHero: ({ commit }, values) => {
+  updateHero: ({ commit }: any, values: Hero) => {
     fetch(`${rootUrl}/${values.id}?key=${key}`, {
       method: 'PUT',
       headers: {
@@ -82,7 +84,7 @@ const actions = {
         }
       });
   },
-  deleteHero: ({ commit }, id) => {
+  deleteHero: ({ commit }: any, id: number) => {
     fetch(`${rootUrl}/${id}?key=${key}`, {
       method: 'DELETE',
     })
@@ -93,7 +95,7 @@ const actions = {
         }
       });
   },
-  searchHeroes: ({ commit }, value) => {
+  searchHeroes: ({ commit }: any, value: string) => {
     if (!value) {
       commit('SEARCH_HEROES', []);
     } else {
@@ -111,10 +113,10 @@ const actions = {
 };
 
 const getters = {
-  heroes: (state) => {
+  heroes: (state: State) => {
     return state.heroes;
   },
-  searchedHeroes: (state) => {
+  searchedHeroes: (state: State) => {
     return state.searchedHeroes;
   },
 };

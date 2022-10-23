@@ -42,7 +42,7 @@ export default {
       this.$store.dispatch('createHero', this.hero);
       this.hero.name = '';
     },
-    deleteHero(id) {
+    deleteHero(id: number) {
       this.$store.dispatch('deleteHero', id);
     }
   }

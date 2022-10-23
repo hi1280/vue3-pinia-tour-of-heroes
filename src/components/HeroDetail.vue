@@ -13,6 +13,8 @@
 </template>
 
 <script lang="ts">
+import type { Hero } from '../hero';
+
 export default {
   data() {
     return {
@@ -24,7 +26,9 @@ export default {
   },
   created() {
     this.$store.dispatch('fetchHero', this.$route.params.id);
-    this.hero = this.$store.getters.heroes.find(element => element.id == this.$route.params.id);
+    this.hero = this.$store.getters.heroes.find(
+      (element: Hero) => String(element.id) === this.$route.params.id
+    );
   },
   methods: {
     goBack() {

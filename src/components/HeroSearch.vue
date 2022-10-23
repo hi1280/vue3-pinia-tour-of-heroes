@@ -2,7 +2,7 @@
   <div id="search-component">
     <h4>Hero Search</h4>
 
-    <input id="search-box" @keyup="search($event.target.value)"/>
+    <input id="search-box" @keyup="search(($event.target as HTMLInputElement).value)"/>
 
     <ul class="search-result">
       <li v-for="hero in heroes" :key="hero.id">
@@ -15,6 +15,7 @@
 </template>
 
 <script lang="ts">
+import type { Hero } from '../hero';
 import _ from 'lodash';
 
 export default {
@@ -24,7 +25,7 @@ export default {
     }
   },
   methods: {
-    search : _.debounce(function(value) {
+    search : _.debounce(function(this: any, value: string) {
       this.$store.dispatch('searchHeroes', value);
     }, 300)
   }
