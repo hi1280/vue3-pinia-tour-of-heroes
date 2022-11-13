@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import firebase from 'firebase/compat/app';
-import * as firebaseui from 'firebaseui';
+import * as firebaseui from '../lib/firebaseui';
 import 'firebaseui/dist/firebaseui.css';
 import { getAuth } from 'firebase/auth';
 import { firebaseApp } from '../main';
@@ -14,7 +14,10 @@ onMounted(() => {
   const ui = new firebaseui.auth.AuthUI(getAuth(firebaseApp));
   ui.start('#firebaseui-auth-container', {
     signInSuccessUrl: '/dashboard',
-    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+    signInOptions: [
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    ],
   });
 });
 </script>
