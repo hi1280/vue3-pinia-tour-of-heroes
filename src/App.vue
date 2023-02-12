@@ -4,6 +4,7 @@
     <nav>
       <router-link to="/dashboard">Dashboard</router-link>
       <router-link to="/heroes">Heroes</router-link>
+      <button @click="logout()">ログアウト</button>
     </nav>
     <router-view></router-view>
   </div>
@@ -11,8 +12,16 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { signOut } from './lib/firebase';
+import { useRouter } from 'vue-router';
 
 const title = ref('Tour of Heroes');
+const router = useRouter();
+
+async function logout() {
+  await signOut();
+  router.push('/login');
+}
 </script>
 
 <style scoped>
